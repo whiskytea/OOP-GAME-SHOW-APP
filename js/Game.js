@@ -24,7 +24,7 @@ class Game {
         this.addPhraseToDisplay(this.activePhrase);
         //sets this.activePhrase = this.getRandomPhrase();
         //once this.activePhrase set, run this.addPhraseToDisplay(activePhrase)
-        this.handleInteraction('E');
+        this.handleInteraction('Z');
     }
 
     getRandomPhrase(phrases){
@@ -54,35 +54,70 @@ class Game {
     }
 
     handleInteraction(e){ //handles most of the game logic
-        //addEventListener => click --- trigger: a letter is clicked
-            //disable clicked letter
-            //if then -> right or wrong letter clicked?
-                //if right ->
-                    //add "chosen" class to letter
-                    //player.showMatchedLetter()
-                    //this.checkWin() -> if won -> this.gameOver()
-                //if wrong ->
-                    //add "wrong" class to letter element
-                    //this.removeLife();
-    let letterList = document.querySelector('#phrase').firstElementChild.children;
-    console.log(letterList);
-    for(let i = 0; i < letterList.length; i++){
-        if(letterList[i].innerHTML.toUpperCase() === e){
-            console.log('you picked the right letter!');
+            //addEventListener => click --- trigger: a letter is clicked
+                //disable clicked letter
+                //if then -> right or wrong letter clicked?
+                    //if right ->
+                        //add "chosen" class to letter
+                        //player.showMatchedLetter()
+                        //this.checkWin() -> if won -> this.gameOver()
+                    //if wrong ->
+                        //add "wrong" class to letter element
+                        //this.removeLife();
+        let letterList = document.querySelector('#phrase').firstElementChild.children;
+        let correctLetter = false;
+        let livesCheck = false; //zeroLives by another name
+        console.log(letterList);
+        for(let i = 0; i < letterList.length; i++){
+            if(letterList[i].innerHTML.toUpperCase() === e.toUpperCase()){
+                letterList[i].classList.add('show');
+                letterList[i].classList.remove('letter');
+                correctLetter = true;
+            }
         }
-    }
 
+        if(!correctLetter){
+            livesCheck = this.removeLife();
+        }
 
-
+        this.checkForWin(livesCheck, letterList);
     }
 
     removeLife(){
         //replace liveHeart.png with lostHeart.png
-        //this.missed += 1 -> if missed = 5 -> this.gameOver()
+        let scoreboard = document.querySelector('#scoreboard').firstElementChild.children;
+        let zeroLives = true;
+        console.log(scoreboard[0].firstElementChild.src);
+        for (let i = 0; i < scoreboard.length; i++){
+            let img = scoreboard[i].firstElementChild;
+
+            if (img.src === 'images/liveHeart.png') { //https://www.codespeedy.com/get-the-html-img-tag-src-attribute-value-in-javascript/#:~:text=JavaScript%20code%20to%20get%20the%20HTML%20img%20tag%20src%20attribute%20value&text=var%20img_src%20%3D%20document.,log(img_src)%3B
+                img.src = 'images/lostHeart.png';
+                console.log('test');
+                zeroLives = false;
+            }
+        }
+        return zeroLives;
     }
 
-    checkForWin(){
+    checkForWin(livesCheck, letterList){
+        let zeroLives = livesCheck;
         // are all the letters revealed? if yes -> this.gameOver();
+        if(zeroLives) {
+            this.gameOver('loss'); //if there are no lives (aka zeroLives is true) end the game at a loss
+        }else if (!zeroLives){ //if we have lives left, lets check if we won
+            let allLettersRevealed = true; //we'll set the win to true, but will change it to false if we find an unrevealed letter
+            for(let i = 0; i < letterList.length; i++){
+                if(letterList[i].classList.contains('letter')){ //the 'letter' class is the unrevealed letter class
+                    allLettersRevealed = false; //so if a letter element has this class, we set the win condition to false
+                }
+            }
+            if (allLettersRevealed){ //however if all the letters are indeed revealed...
+                this.gameOver('win'); //win the game
+            }else{
+                console.log('we survived the win check logic');
+            }
+        }
     }
 
     gameOver(){
