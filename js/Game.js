@@ -8,7 +8,7 @@ class Game {
         this.phrases = [
             'Do or do not, there is no try',
             'In for a penny, in for a pound',
-            'Pot, meet kettle',
+            'Pot meet kettle',
             'The devil is in the details',
             'Not all who wander are lost'
         ]; //5 phrases
@@ -24,7 +24,6 @@ class Game {
         this.addPhraseToDisplay(this.activePhrase);
         //sets this.activePhrase = this.getRandomPhrase();
         //once this.activePhrase set, run this.addPhraseToDisplay(activePhrase)
-        this.handleInteraction('Z');
     }
 
     getRandomPhrase(phrases){
@@ -54,6 +53,7 @@ class Game {
     }
 
     handleInteraction(e){ //handles most of the game logic
+        let key = e.innerHTML;
             //addEventListener => click --- trigger: a letter is clicked
                 //disable clicked letter
                 //if then -> right or wrong letter clicked?
@@ -65,20 +65,25 @@ class Game {
                         //add "wrong" class to letter element
                         //this.removeLife();
         let letterList = document.querySelector('#phrase').firstElementChild.children;
-        let correctLetter = false;
         let livesCheck = false; //zeroLives by another name
-        console.log(letterList);
+        let correctLetter = false;
         for(let i = 0; i < letterList.length; i++){
-            if(letterList[i].innerHTML.toUpperCase() === e.toUpperCase()){
-                letterList[i].classList.add('show');
-                letterList[i].classList.remove('letter');
-                correctLetter = true;
+            if(letterList[i].innerHTML.toUpperCase() === key.toUpperCase()){
+                for(let i = 0; i < letterList.length; i++) {
+                    letterList[i].classList.add('show');
+                    letterList[i].classList.remove('letter');
+                    e.classList.add('chosen');
+                }
+                break;
+            }else{
+                livesCheck = this.removeLife();
+                e.classList.add('wrong');
+                e.disabled = true; //https://www.w3schools.com/jsref/prop_pushbutton_disabled.asp
+                break;
             }
         }
 
-        if(!correctLetter){
-            livesCheck = this.removeLife();
-        }
+
 
         this.checkForWin(livesCheck, letterList);
     }
@@ -87,14 +92,12 @@ class Game {
         //replace liveHeart.png with lostHeart.png
         let scoreboard = document.querySelector('#scoreboard').firstElementChild.children;
         let zeroLives = true;
-        console.log(scoreboard[0].firstElementChild.src);
         for (let i = 0; i < scoreboard.length; i++){
             let img = scoreboard[i].firstElementChild;
-
-            if (img.src === 'images/liveHeart.png') { //https://www.codespeedy.com/get-the-html-img-tag-src-attribute-value-in-javascript/#:~:text=JavaScript%20code%20to%20get%20the%20HTML%20img%20tag%20src%20attribute%20value&text=var%20img_src%20%3D%20document.,log(img_src)%3B
+            if(img.src.includes('liveHeart.png')){
                 img.src = 'images/lostHeart.png';
-                console.log('test');
                 zeroLives = false;
+                break;
             }
         }
         return zeroLives;
@@ -112,6 +115,7 @@ class Game {
                     allLettersRevealed = false; //so if a letter element has this class, we set the win condition to false
                 }
             }
+
             if (allLettersRevealed){ //however if all the letters are indeed revealed...
                 this.gameOver('win'); //win the game
             }else{
@@ -120,7 +124,7 @@ class Game {
         }
     }
 
-    gameOver(){
+    gameOver(e){
         //method displays the original start screen overlay
         //depending on the outcome update the overlay h1 element w/ win or loss message
         //replace overlay's 'start' class with "win" or "loss" class
@@ -129,5 +133,11 @@ class Game {
             //remove all "li" elements from the Phrase ul element
             //enable all of the keyboard buttons and set class to "key"
             //reset all the heart images by switching them back to liveHeart.png
+
+        if(e === 'loss'){
+            console.log('we lost!');
+        }else if(e === 'win'){
+            console.log('we did it!');
+        }
     }
 }
