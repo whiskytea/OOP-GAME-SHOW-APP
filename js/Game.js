@@ -6,8 +6,8 @@ class Game {
     constructor() {
         this.missed = 0;
         this.phrases = [
-            'Do or do not, there is no try',
-            'In for a penny, in for a pound',
+            'Do or do not there is no try',
+            'In for a penny in for a pound',
             'Pot meet kettle',
             'The devil is in the details',
             'Not all who wander are lost'
@@ -70,17 +70,22 @@ class Game {
         for(let i = 0; i < letterList.length; i++){
             if(letterList[i].innerHTML.toUpperCase() === key.toUpperCase()){
                 for(let i = 0; i < letterList.length; i++) {
-                    letterList[i].classList.add('show');
-                    letterList[i].classList.remove('letter');
+                    if(letterList[i].innerHTML.toUpperCase() === key.toUpperCase()){
+                        letterList[i].classList.add('show');
+                        letterList[i].classList.remove('letter');
+                    }
+
                     e.classList.add('chosen');
                 }
-                break;
-            }else{
-                livesCheck = this.removeLife();
-                e.classList.add('wrong');
-                e.disabled = true; //https://www.w3schools.com/jsref/prop_pushbutton_disabled.asp
+                correctLetter = true;
                 break;
             }
+        }
+
+        if(!correctLetter){
+            livesCheck = this.removeLife();
+            e.classList.add('wrong');
+            e.disabled = true; //https://www.w3schools.com/jsref/prop_pushbutton_disabled.asp
         }
 
 
@@ -137,7 +142,10 @@ class Game {
         if(e === 'loss'){
             console.log('we lost!');
         }else if(e === 'win'){
-            console.log('we did it!');
+            let overlay = document.querySelector('#overlay');
+            overlay.classList.add('win');
+            overlay.style.display = 'flex';
+
         }
     }
 }
