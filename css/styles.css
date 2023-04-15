@@ -4,13 +4,13 @@
 /* Variables */
 
 :root {
-  --color-win: #78CF82;
-  --color-lose: #D94545;
-  --color-start: #5b85b7;
-  --color-neutral: #445069;
-  --color-neutral-light: #D2D2D2;
-  --color-keys: #37474F;
-  --color-keys-light: #E5E5E5;
+  --color-win: #DBFF76;
+  --color-lose: #726E60;
+  --color-start: #98B06F;
+  --color-neutral: #98B06F;
+  --color-neutral-light: #B6DC76;
+  --color-keys: #442B48;
+  --color-keys-light: #543659;
   --font-size-large: 60px;
   --font-size-medium: 20px;
   --transition: all .2s ease-in-out;
@@ -145,7 +145,7 @@ button {
 .btn__reset {
   padding: 16px;
   margin: 50px auto;
-  background: #f7a964;
+  background: #726E60;
   border-radius: 5px;
   font-size: 20px;
   cursor: pointer;
@@ -180,7 +180,7 @@ button {
 }
 
 .start {
-  background-color: #3a3f58;
+  background-color: #98B06F;
 }
 
 .start a {

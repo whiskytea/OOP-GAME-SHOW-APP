@@ -41,14 +41,13 @@ class Game {
         if(!letterCheck){
             livesCheck = this.removeLife();
             e.classList.add('wrong');
-
         }else{
             e.classList.add('chosen');
         }
 
         e.disabled = true; //https://www.w3schools.com/jsref/prop_pushbutton_disabled.asp
-        let letterList = document.querySelector('#phrase').firstElementChild.children;
-        this.checkForWin(livesCheck, letterList);
+
+        this.checkForWin(livesCheck);
     }
 
     removeLife(){
@@ -59,19 +58,25 @@ class Game {
             let img = scoreboard[i].firstElementChild;
             if(img.src.includes('liveHeart.png')){
                 img.src = 'images/lostHeart.png';
-                zeroLives = false;
+                if(i === scoreboard.length-1){ //we want the game to end on the last heart lost
+                    zeroLives = true;
+                }else{
+                    zeroLives = false;
+                }
                 break;
             }
+
         }
         return zeroLives;
     }
 
-    checkForWin(livesCheck, letterList){
-        let zeroLives = livesCheck;
+    checkForWin(livesCheck){
+        let letterList = document.querySelector('#phrase').firstElementChild.children;
+        let _livesCheck = livesCheck;
         // are all the letters revealed? if yes -> this.gameOver();
-        if(zeroLives) {
+        if(_livesCheck) {
             this.gameOver('loss'); //if there are no lives (aka zeroLives is true) end the game at a loss
-        }else if (!zeroLives){ //if we have lives left, lets check if we won
+        }else if (!_livesCheck){ //if we have lives left, lets check if we won
             let allLettersRevealed = true; //we'll set the win to true, but will change it to false if we find an unrevealed letter
             for(let i = 0; i < letterList.length; i++){
                 if(letterList[i].classList.contains('letter')){ //the 'letter' class is the unrevealed letter class
@@ -98,7 +103,9 @@ class Game {
             //reset all the heart images by switching them back to liveHeart.png
 
         if(e === 'loss'){
-            console.log('we lost!');
+            let overlay = document.querySelector('#overlay');
+            overlay.classList.add('lose');
+            overlay.style.display = 'flex';
         }else if(e === 'win'){
             let overlay = document.querySelector('#overlay');
             overlay.classList.add('win');
