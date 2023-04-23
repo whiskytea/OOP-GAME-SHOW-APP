@@ -20,18 +20,17 @@ Extra credit:
 - uniqueness: colors, fonts, animations // make sure to notate in the readme and submission notes
 
 //colors:
+lightest green: #C4F1BE (used in background elements)
+medium-light green: #A2C3A4
+medium green: #869C96
+pigmented green (aka not a faded pastel green): #308B65
+dark green: #36443F
+green toned black: #090B0A
+off white: #F3F4F7
 
-https://coolors.co/c4f1be-a2c3a4-869d96-525b76-201e50
-/* CSS HEX */
---tea-green: #c4f1beff;
---cambridge-blue: #a2c3a4ff;
---cambridge-blue-2: #869d96ff;
---paynes-gray: #525b76ff;
---space-cadet: #201e50ff;
+//heart icons are manipulations of heart icons attributed below. I pulled them into Figma and changed them up a bit, but the original idea belongs to Flaticon
+<a href="https://www.flaticon.com/free-icons/heart" title="heart icons">Heart icons created by Freepik - Flaticon</a>
+https://www.flaticon.com/free-icon/heart_3076988?term=life+game+heart&related_id=3076988
 
-/* CSS HSL */
---tea-green: hsla(113, 65%, 85%, 1);
---cambridge-blue: hsla(124, 22%, 70%, 1);
---cambridge-blue-2: hsla(162, 11%, 57%, 1);
---paynes-gray: hsla(225, 18%, 39%, 1);
---space-cadet: hsla(242, 45%, 22%, 1);
+
+

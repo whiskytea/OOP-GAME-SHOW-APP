@@ -4,13 +4,15 @@
 /* Variables */
 
 :root {
-  --color-win: #DBFF76;
-  --color-lose: #726E60;
-  --color-start: #98B06F;
-  --color-neutral: #98B06F;
-  --color-neutral-light: #B6DC76;
-  --color-keys: #442B48;
-  --color-keys-light: #543659;
+  --font-color-dark: #090b0a;
+  --font-color-light: #f3f4f7;
+  --color-win: #869C96;
+  --color-lose: #869C96;
+  --color-start: #f3f4f7;
+  --color-neutral: #308B65;
+  --color-neutral-light: #A2C3A4;
+  --color-keys: #869D96;
+  --color-keys-light: #A2C3A4;
   --font-size-large: 60px;
   --font-size-medium: 20px;
   --transition: all .2s ease-in-out;
@@ -28,6 +30,8 @@ body {
   flex-direction: column;
   display: flex;
   height: 100vh;
+  background: no-repeat url("/images/backgroundIMG.png");
+  background-size: 110%;
 }
 
 li, ol, ul {
@@ -50,9 +54,9 @@ button {
   margin: 6px;
   border: 1px solid transparent;
   padding: .5rem 1rem;
-  color: var(--color-keys);
+  color: var(--font-color-light);
   font-size: var(--font-size-medium);
-  background-color: var(--color-keys-light);
+  background-color: var(--color-keys);
   border-radius: 5px;
   -webkit-transition: var(--transition);
   -o-transition: var(--transition);
@@ -86,7 +90,7 @@ button {
 /* Title */
 
 .header {
-  color: #3a3f58;
+  color: #090B0A;
 }
 
 
@@ -99,7 +103,7 @@ button {
   padding: 20px 1px 0 1px;
   margin-right: 2px;
   color: transparent;
-  background: var(--color-neutral-light);
+  background: var(--color-neutral);
   border-radius: 5px;
 }
 
@@ -110,8 +114,8 @@ button {
 
 
 .show {
-  color: #fff;
-  background-color: #4ac0d5;
+  color: var(--font-color-light);
+  background-color: #A2C3A4;
   font-size: 20px;
   height: 65px;
   width: 65px;
@@ -131,15 +135,15 @@ button {
 }
 
 .chosen {
-  background: #3a3f58;
+  background: #A2C3A4;
   border-radius: 5px;
   font-size: var(--font-size-medium);
-  color: #FFFFFF;
+  color: var(--font-color-light);
 }
 
 .wrong {
-  background: #f7a964;
-  color: #FFFFFF;
+  background: #36443F;
+  color: var(--font-color-light);
 }
 
 .btn__reset {
@@ -166,7 +170,7 @@ button {
   display: flex;
   flex-direction: column;
   position: fixed;
-  color: #FFFFFF;
+  color: var(--font-color-light);
   justify-content: center;
   top: 0;
   bottom: 0;
@@ -176,15 +180,15 @@ button {
 }
 
 .title {
-  color: #FFF;
+  color: var(--font-color-dark);
 }
 
 .start {
-  background-color: #98B06F;
+  background-color: var(--color-start);
 }
 
 .start a {
-  color: #fff;
+  color: var(--font-color-light);
 }
 
 .win {
