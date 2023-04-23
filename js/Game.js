@@ -79,8 +79,10 @@ class Game {
         }else if (!_livesCheck){ //if we have lives left, lets check if we won
             let allLettersRevealed = true; //we'll set the win to true, but will change it to false if we find an unrevealed letter
             for(let i = 0; i < letterList.length; i++){
+
                 if(letterList[i].classList.contains('letter')){ //the 'letter' class is the unrevealed letter class
                     allLettersRevealed = false; //so if a letter element has this class, we set the win condition to false
+                    console.log(allLettersRevealed);
                 }
             }
 
