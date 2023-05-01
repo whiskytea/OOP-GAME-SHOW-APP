@@ -114,5 +114,9 @@ class Game {
             overlay.style.display = 'flex';
 
         }
+
+        //board clean up
+        let phraseUL = document.querySelector('#phrase');
+        console.log(phraseUL.children[1]);
     }
 }
