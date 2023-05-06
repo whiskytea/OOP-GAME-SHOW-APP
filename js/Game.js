@@ -117,6 +117,6 @@ class Game {
 
         //board clean up
         let phraseUL = document.querySelector('#phrase');
-        console.log(phraseUL.children[1]);
+        console.log(phraseUL.children);
     }
 }
