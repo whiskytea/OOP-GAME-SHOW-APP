@@ -34,14 +34,24 @@ class Game {
     }
 
     handleInteraction(e){ //handles most of the game logic
-        let key = e.innerHTML;
+        let key;
+        if(typeof e !== 'string'){
+            key = e.innerHTML;
+        }else{
+            key = e;
+        }
+
 
         let livesCheck = false; //zeroLives by another name
         let letterCheck = this.activePhrase.checkLetter(key);
-
+        let scoreboard = document.querySelector('#scoreboard').firstElementChild.children;
         if(!letterCheck){
             livesCheck = this.removeLife();
-            e.classList.add('wrong');
+            scoreboard.forEach(letter => function(){
+                if(letter === key){
+                    letter.classList.add('wrong');
+                }
+            });
         }else{
             e.classList.add('chosen');
         }

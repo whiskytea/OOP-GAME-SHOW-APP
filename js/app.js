@@ -15,10 +15,12 @@ document.addEventListener('click', function(e) {
 document.addEventListener('click', function(e) { //logic for letter key presses. Each valid keypress triggers game.handleInteraction();
    let target = e.target.parentElement;
    if (target.className === 'keyrow') {
-     let key = e.target.innerHTML;
      game.handleInteraction(e.target);
    }
 });
 
+document.addEventListener('keydown', function(e) { //logic for letter key presses. Each valid keypress triggers game.handleInteraction();
+    game.handleInteraction(e.key);
+});
 
 
