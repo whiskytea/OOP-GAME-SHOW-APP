@@ -19,6 +19,7 @@ class Game {
     startgame(){
         console.log('start game');
         document.querySelector('#overlay').style.display = "none";
+        document.querySelector('#overlay').classList.remove('win', 'lose');
         this.activePhrase = new Phrase(this.getRandomPhrase(this.phrases));
         console.log(this.activePhrase.phrase);
         this.activePhrase.addPhraseToDisplay(this.activePhrase);
@@ -82,16 +83,39 @@ class Game {
 
                 if(letterList[i].classList.contains('letter')){ //the 'letter' class is the unrevealed letter class
                     allLettersRevealed = false; //so if a letter element has this class, we set the win condition to false
-                    console.log(allLettersRevealed);
                 }
             }
 
             if (allLettersRevealed){ //however if all the letters are indeed revealed...
                 this.gameOver('win'); //win the game
-            }else{
-                console.log('we survived the win check logic');
             }
         }
+    }
+
+    boardCleanup(){
+        //remove the phrase
+        let phraseUL = document.getElementById('phrase').getElementsByTagName('UL')[0];
+        while(phraseUL.firstChild){ //https://developer.mozilla.org/en-US/docs/Web/API/Node/removeChild
+            phraseUL.removeChild((phraseUL.firstChild));
+        }
+
+        //reset the keyboard
+        let keyRow = document.getElementsByClassName("key");
+        for (let i = 0; i < keyRow.length; i++){
+            keyRow[i].disabled = false;
+            keyRow[i].classList.remove('wrong', 'chosen');
+        }
+
+        //reset the life counter
+        let scoreboard = document.querySelector('#scoreboard').firstElementChild.children;
+        for (let i = 0; i < scoreboard.length; i++){
+            let img = scoreboard[i].firstElementChild;
+            img.src = 'images/liveHeart.png';
+        }
+
+        //remove phrase from the phrase list
+        this.phrases = this.phrases.filter(phrase => phrase !== this.activePhrase.phrase); //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+
     }
 
     gameOver(e){
@@ -103,20 +127,28 @@ class Game {
             //remove all "li" elements from the Phrase ul element
             //enable all of the keyboard buttons and set class to "key"
             //reset all the heart images by switching them back to liveHeart.png
-
+        let overlay = document.querySelector('#overlay');
         if(e === 'loss'){
-            let overlay = document.querySelector('#overlay');
             overlay.classList.add('lose');
             overlay.style.display = 'flex';
         }else if(e === 'win'){
-            let overlay = document.querySelector('#overlay');
             overlay.classList.add('win');
             overlay.style.display = 'flex';
 
         }
 
-        //board clean up
-        let phraseUL = document.querySelector('#phrase');
-        console.log(phraseUL.children);
+        //board clean up-----------------------------------------
+        this.boardCleanup();
+
+        //true game over - we've tried every phrase
+        if(this.phrases.length === 0){
+            let startButton = document.getElementById("btn__reset");
+            startButton.disabled = true;
+            startButton.textContent = "All phrases attempted. Refresh the page to start over.";
+            startButton.style.width = '400px';
+            startButton.style.cursor = 'default'; //https://developer.mozilla.org/en-US/docs/Web/CSS/cursor
+            overlay.classList.remove('lose','win');
+        }
+
     }
 }

@@ -192,7 +192,8 @@ button {
 }
 
 .win {
-  background-color: var(--color-win);
+  background: 75% 75% no-repeat url("/images/WIN.png"), var(--color-start)  bottom right no-repeat url("/images/backgroundIMG-bottomRight.png");
+  background-size: 10%, 80%;
 }
 
 .win a {
@@ -200,7 +201,8 @@ button {
 }
 
 .lose {
-  background-color: #f5785f;
+  background: 75% 75% no-repeat url("/images/LOSE.png"), var(--color-start)  bottom right no-repeat url("/images/backgroundIMG-bottomRight.png");
+  background-size: 10%, 80%;
 }
 
 .lose a {
