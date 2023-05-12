@@ -19,8 +19,10 @@ Extra credit:
 - add keyboard functionality //keydown and keyup events
 - uniqueness: colors, fonts, animations // make sure to notate in the readme and submission notes
 
+DESIGN BOARD: https://www.figma.com/file/E3OavdHa8FWJQuRQcEDT6F/PHRASE-HUNTER?type=design&node-id=0-1&t=lnsB1WoBPajgFi5d-0
+
 //colors:
-lightest green: #C4F1BE (used in background elements)
+lightest green: #C4F1BE
 medium-light green: #A2C3A4
 medium green: #869C96
 pigmented green (aka not a faded pastel green): #308B65
