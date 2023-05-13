@@ -44,19 +44,23 @@ class Game {
 
         let livesCheck = false; //zeroLives by another name
         let letterCheck = this.activePhrase.checkLetter(key);
-        let scoreboard = document.querySelector('#scoreboard').firstElementChild.children;
+        let keys = document.getElementsByClassName('key');
         if(!letterCheck){
             livesCheck = this.removeLife();
-            scoreboard.forEach(letter => function(){
-                if(letter === key){
-                    letter.classList.add('wrong');
+            for (let i = 0; i < keys.length; i++){
+               if(keys[i].textContent === key){
+                   keys[i].classList.add('wrong');
+                   keys[i].disabled = true; //https://www.w3schools.com/jsref/prop_pushbutton_disabled.asp
                 }
-            });
+            }
         }else{
-            e.classList.add('chosen');
+            for (let i = 0; i < keys.length; i++){
+                if(keys[i].textContent === key){
+                    keys[i].classList.add('chosen');
+                    keys[i].disabled = true;
+                }
+            }
         }
-
-        e.disabled = true; //https://www.w3schools.com/jsref/prop_pushbutton_disabled.asp
 
         this.checkForWin(livesCheck);
     }
