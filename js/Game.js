@@ -17,11 +17,9 @@ class Game {
     }
 
     startgame(){
-        console.log('start game');
         document.querySelector('#overlay').style.display = "none";
         document.querySelector('#overlay').classList.remove('win', 'lose');
         this.activePhrase = new Phrase(this.getRandomPhrase(this.phrases));
-        console.log(this.activePhrase.phrase);
         this.activePhrase.addPhraseToDisplay(this.activePhrase);
         //sets this.activePhrase = this.getRandomPhrase();
         //once this.activePhrase set, run this.addPhraseToDisplay(activePhrase)
