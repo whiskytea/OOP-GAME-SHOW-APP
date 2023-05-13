@@ -6,11 +6,11 @@ class Game {
     constructor() {
         this.missed = 0;
         this.phrases = [
-            'Do or do not there is no try',
-            'In for a penny in for a pound',
-            'Pot meet kettle',
-            'The devil is in the details',
-            'Not all who wander are lost'
+            new Phrase('Do or do not there is no try'),
+            new Phrase('In for a penny in for a pound'),
+            new Phrase('Pot meet kettle'),
+            new Phrase('The devil is in the details'),
+            new Phrase('Not all who wander are lost')
         ]; //5 phrases
         this.activePhrase = null;
 
@@ -19,7 +19,7 @@ class Game {
     startgame(){
         document.querySelector('#overlay').style.display = "none";
         document.querySelector('#overlay').classList.remove('win', 'lose');
-        this.activePhrase = new Phrase(this.getRandomPhrase(this.phrases));
+        this.activePhrase = this.getRandomPhrase(this.phrases);
         this.activePhrase.addPhraseToDisplay(this.activePhrase);
         //sets this.activePhrase = this.getRandomPhrase();
         //once this.activePhrase set, run this.addPhraseToDisplay(activePhrase)
@@ -39,26 +39,29 @@ class Game {
             key = e;
         }
 
-
+        console.log(e);
         let livesCheck = false; //zeroLives by another name
-        let letterCheck = this.activePhrase.checkLetter(key);
-        let keys = document.getElementsByClassName('key');
-        if(!letterCheck){
-            livesCheck = this.removeLife();
-            for (let i = 0; i < keys.length; i++){
-               if(keys[i].textContent === key){
-                   keys[i].classList.add('wrong');
-                   keys[i].disabled = true; //https://www.w3schools.com/jsref/prop_pushbutton_disabled.asp
+        if(e !== " "){
+            let letterCheck = this.activePhrase.checkLetter(key);
+            let keys = document.getElementsByClassName('key');
+            if(!letterCheck){
+                livesCheck = this.removeLife();
+                for (let i = 0; i < keys.length; i++){
+                    if(keys[i].textContent === key){
+                        keys[i].classList.add('wrong');
+                        keys[i].disabled = true; //https://www.w3schools.com/jsref/prop_pushbutton_disabled.asp
+                    }
                 }
-            }
-        }else{
-            for (let i = 0; i < keys.length; i++){
-                if(keys[i].textContent === key){
-                    keys[i].classList.add('chosen');
-                    keys[i].disabled = true;
+            }else{
+                for (let i = 0; i < keys.length; i++){
+                    if(keys[i].textContent === key){
+                        keys[i].classList.add('chosen');
+                        keys[i].disabled = true;
+                    }
                 }
             }
         }
+
 
         this.checkForWin(livesCheck);
     }
@@ -126,7 +129,7 @@ class Game {
         }
 
         //remove phrase from the phrase list
-        this.phrases = this.phrases.filter(phrase => phrase !== this.activePhrase.phrase); //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+        // this.phrases = this.phrases.filter(phrase => phrase !== this.activePhrase.phrase); //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
 
     }
 
@@ -152,15 +155,15 @@ class Game {
         //board clean up-----------------------------------------
         this.boardCleanup();
 
-        //true game over - we've tried every phrase
-        if(this.phrases.length === 0){
-            let startButton = document.getElementById("btn__reset");
-            startButton.disabled = true;
-            startButton.textContent = "All phrases attempted. Refresh the page to start over.";
-            startButton.style.width = '400px';
-            startButton.style.cursor = 'default'; //https://developer.mozilla.org/en-US/docs/Web/CSS/cursor
-            overlay.classList.remove('lose','win');
-        }
+        //true game over - we've tried every phrase (since we are running the game app from the start button this is no longer going to work)
+        // if(this.phrases.length === 0){
+        //     let startButton = document.getElementById("btn__reset");
+        //     startButton.disabled = true;
+        //     startButton.textContent = "All phrases attempted. Refresh the page to start over.";
+        //     startButton.style.width = '400px';
+        //     startButton.style.cursor = 'default'; //https://developer.mozilla.org/en-US/docs/Web/CSS/cursor
+        //     overlay.classList.remove('lose','win');
+        // }
 
     }
 }
